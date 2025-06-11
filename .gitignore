@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 plots/
+results/
 processed/
 *.pt
 .Python
