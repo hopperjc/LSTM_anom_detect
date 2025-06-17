@@ -22,7 +22,7 @@ df.sort_values('date_time', inplace=True)
 df.reset_index(drop=True, inplace=True)
 
 # 2. Salvar CSV completo
-df.to_csv('processed/traffic_full.csv', index=False)
+df.to_csv('./processed/traffic_full.csv', index=False)
 print('CSV completo salvo em processed/traffic_full.csv')
 
 # 3. EDA: plot série completa
@@ -32,7 +32,7 @@ plt.title('Traffic Volume Over Time')
 plt.xlabel('Date Time')
 plt.ylabel('Volume')
 plt.tight_layout()
-plt.savefig('plots/traffic_full.png')
+plt.savefig('./plots/traffic_full.png')
 plt.close()
 print('Plot completo salvo em plots/traffic_full.png')
 
@@ -44,7 +44,7 @@ for year, grp in df.groupby(df['date_time'].dt.year):
     plt.xlabel('Date Time')
     plt.ylabel('Volume')
     plt.tight_layout()
-    path = f'plots/traffic_{year}.png'
+    path = f'./plots/traffic_{year}.png'
     plt.savefig(path)
     plt.close()
     print(f'Plot {year} salvo em {path}')
@@ -57,7 +57,7 @@ for (year, month), grp in df.groupby([df['date_time'].dt.year, df['date_time'].d
     plt.xlabel('Date Time')
     plt.ylabel('Volume')
     plt.tight_layout()
-    path = f'plots/traffic_{year}_{month:02d}.png'
+    path = f'./plots/traffic_{year}_{month:02d}.png'
     plt.savefig(path)
     plt.close()
     print(f'Plot {year}-{month:02d} salvo em {path}')
@@ -67,7 +67,7 @@ traffic = df['traffic_volume'].values
 z_scores = np.abs(stats.zscore(traffic))
 thresh = 2
 anomaly_df = df[z_scores > thresh].copy()
-anomaly_df.to_csv('processed/anomalies_zscore.csv', index=False)
+anomaly_df.to_csv('./processed/anomalies_zscore.csv', index=False)
 print('Anomalias Z-score salvas em processed/anomalies_zscore.csv')
 
 # 6. Pré-processamento multivariado
@@ -84,5 +84,5 @@ cols = preprocessor.get_feature_names_out()
 df_proc = pd.DataFrame(X_all, columns=cols)
 df_proc['traffic_volume'] = y_all
 df_proc['date_time'] = df['date_time'].values
-df_proc.to_csv('processed/preprocessed_features.csv', index=False)
+df_proc.to_csv('./processed/preprocessed_features.csv', index=False)
 print('Recursos pré-processados salvos em processed/preprocessed_features.csv')
